@@ -3,3 +3,7 @@
 The MosViR package offers an easy way to accurately identify complex discriminatory patterns in viral contigs and predict their potential host range The package enhances our ability to capture the diverse genomic landscape of mosquito-associated viruses, Other viruses, Mosquito-specific viruses, and Arboviruses.
 
 ![](https://github.com/aandradebio/MosViR/blob/main/GraphicalAbstract1.jpg)
+
+# About the MosViR pipeline 
+
+![](https://github.com/aandradebio/MosViR/blob/main/Fig3.png)
