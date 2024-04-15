@@ -41,3 +41,21 @@ OR
 library(devtools)
 devtools::install_url ("https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz")
 ```
+
+## The predict_sequences function
+
+The main function of our pipeline, predict_sequences, is designed to handle a FASTA file containing viral contigs. It anticipates the prior usage of Biostrings for importing FASTA files into the R environment. This function divides the sequences from the DNAStringSet object into segments of varying nucleotide lengths. Subsequently, it utilizes the mnmer package to generate feature matrices for testing against previously trained predictive models.
+
+Key Features:
+
+Customization: Users can tailor the function by specifying the number of sequences to load, choosing sequences randomly, and setting a probability score cutoff.
+
+The parameters are:
+
+`seqs` = DNAStringObject. 
+
+`cutoff` = Adjust the probability score threshold. Higher cutoff values can result in accurate positive classifications (Mosquito-associated viruses and Arboviruses) while inflating the False Negative results. Default 0.50 
+
+`all.data` = Select sequences randomly or not. Set TRUE or FALSE
+
+The $predict\_sequences$ function returns a data frame containing the classification outputs, as well as the probability scores for all sequences. 
