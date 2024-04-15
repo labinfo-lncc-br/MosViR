@@ -18,6 +18,26 @@ For detailed methodological insights, performance comparisons, and biological ap
 
 # About the MosViR pipeline 
 
-The pipeline receives viral contigs as input, obtained by assembling reads from metatranscriptomic sequencing of environmental samples or tissues from the vertebrate host or mosquito vectors. 
+The MosViR pipeline is released as an R package available at https://doi.org/10.5281/zenodo.10950999. It requires R v. 4 and a previous installation of Biostrings (https://bioconductor.org/packages/Biostrings) and mnmer (https://github.com/labinfo-lncc/mnmer) packages.
+
+The pipeline receives viral contigs as input, obtained by assembling reads from metatranscriptomic sequencing of environmental samples or tissues from the vertebrate host or mosquito vectors. The viral contigs present a minimum size of 500 bp and varying percentages of non-ACTG bases. The pipeline conducts individual analysis for each contig, starting with quality control. This ensures that the occurrence of these bases does not exceed an acceptable threshold, default set at 2%. 
+
+Feature extraction and subset selection are applied to high-quality contigs, with the choice of the classification fragment (500 bp, 1000 bp, 3000 bp, 5000 bp, or 10000 bp) contingent on the length of the input contig. The subset of contigs is influenced by the proximity of sequence length to the specified fragment. 
+
+After the classification, the pipeline produces an output file with probability scores for each input contig. The scores obtained through soft voting indicate the likelihood of the predictive models being right when assigning a contig to its predicted class. These values range from 0.00 to 1.00 and represent the aggregated predicted probabilities across multiple models. The decision-making process for predicting classes relies on these scores, with a standard threshold set at 0.50. The MosViR pipeline uses the 0.50 threshold as default. However, the user can modify this value to adjust the classification stringency or meet specific requirements.
 
 ![](https://github.com/aandradebio/MosViR/blob/main/Fig3.png)
+
+# Instalation
+
+The user should install the package from the Zenodo repository. 
+
+```
+wget https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz
+dentro do R: install.packages (“MosViR_0.99.1.tar.gz”)
+
+OR
+
+library(devtools)
+devtools::install_url ("https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz")
+```
