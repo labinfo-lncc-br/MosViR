@@ -1,0 +1,13 @@
+Package: MosViR
+Title: Classify virus sequences in a FASTA format into Arbovirus, mosquito-specific, or other virus.
+Version: 0.99.1
+Authors@R: c(person(given = "Amanda",family = "Andrade", role = c("cre", "aut"), comment=c(ORCID="0000-0003-3530-7435"), email = "aandradebio@gmail.com"),
+	person(given = "Marco",family = "Grivet", comment=c(ORCID="0000-0001-5130-095X"), role = "aut"),
+	person(given = "Otavio",family = "Brustolini", comment=c(ORCID="0000-0001-8132-9753"), role= "aut"),
+	person(given = "Ana",family = "Vasconcelos",comment=c(ORCID="0000-0002-4632-2086"),role = c("aut", "ths")))
+Description: The MosViR package offers an an easy way to accurately identify complex discriminatory patterns in viral contigs and predict their potential host range The package enhances our ability to capture the diverse genomic landscape of mosquito-associated viruses, Other viruses, Mosquito-specific viruses, and Arboviruses.
+License: Artistic-2.0
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Depends: R(>= 4.1), mnmer, Biostrings, caret
