@@ -30,13 +30,22 @@ After the classification, the pipeline produces an output file with probability 
 
 # Instalation
 
-The user should install the package from the Zenodo repository. 
+The user should install the package from the Zenodo repository. Please note that the MosViR package has 4,19G due to the multiple predictive models. It may take a while to download.  
 
 ```
 library(devtools)
-library(utils)
 devtools::install_github("labinfo-lncc/mnmer", ref="main")
 devtools::install_url ("https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz")
+
+OR 
+
+In the command line: 
+wget https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz
+
+In R:
+library(devtools)
+devtools::install_github("labinfo-lncc/mnmer", ref="main")
+install.packages("MosViR_0.99.1.tar.gz", repos = NULL, type="source")
 ```
 
 ## The predict_sequences function
