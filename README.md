@@ -33,12 +33,9 @@ After the classification, the pipeline produces an output file with probability 
 The user should install the package from the Zenodo repository. 
 
 ```
-wget https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz
-dentro do R: install.packages (“MosViR_0.99.1.tar.gz”)
-
-OR
-
 library(devtools)
+library(utils)
+devtools::install_github("labinfo-lncc/mnmer", ref="main")
 devtools::install_url ("https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz")
 ```
 
