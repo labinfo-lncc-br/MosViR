@@ -1,0 +1,141 @@
+---
+title: "MosViR - Classification of mosquito viruses in R"
+author: |
+  \begin{tabular}[t]{@{}c@{}}
+  Amanda Araújo Serrão de Andrade\(^{1}\)\\
+  Otávio Brustolini\(^{1}\)\\
+  Marco Grivet\(^{2}\)\\
+  Carlos Eduardo Guerra Schrago\(^{3}\)\\
+  Ana Tereza Ribeiro de Vasconcelos\(^{1}\) (Correspondence: atrv@lncc.br) \\
+  \end{tabular}
+output:
+  pdf_document: default
+package: MosViR
+vignette: "%\\VignetteIndexEntry{MosViR - Classification of mosquito viruses in R}
+  %\\VignetteEngine{rmarkdown} %\\usepackage[UTF-8]{inputenc}\n"
+header-includes:
+  - \usepackage{titling}
+  - \newcommand{\affil}[1]{\textsuperscript{\textit{#1}}}
+  - \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+---
+
+\textsuperscript{1} LNCC, Laboratory for Scientific Computing - Bioinformatics Laboratory (LABINFO), Rio de Janeiro, Brazil
+
+\textsuperscript{2} PUC, Pontifícia Universidade Católica do Rio de Janeiro, Rio de Janeiro, Brazil
+
+\textsuperscript{3} UFRJ, Federal University of Rio de Janeiro - Genetics department, Rio de Janeiro, Brazil 
+
+\section{Abstract}
+
+The MosViR package offers an an easy way to accurately identify complex discriminatory patterns in viral contigs and predict their potential host range The package enhances our ability to capture the diverse genomic landscape of 1) mosquito-associated viruses, 2) Other viruses, 1a) Mosquito-specific viruses, and 1b) Arboviruses.
+
+\section{Introduction to the MosViR package and it's applications}
+
+The MosViR package is a computational pipeline designed to analyze metatranscriptomic mosquito data, providing accurate host-based classifications for mosquito-associated viruses from contigs as short as 500 bp. Using multiple predictive models, MosViR classifies mosquito-associated viruses into four distinct categories: Mosquito-associated viruses, Other viruses, Mosquito-specific viruses, and Arboviruses, with high statistical power. 
+
+We employ two sequential binary classifications within MosViR. The initial classification step distinguishes between Mosquito-associated viruses and Other viruses, while the subsequent classification step focuses on Arboviruses and Mosquito-specific viruses. A secondary classifier exclusively considers data classified as Mosquito-associated viruses (Figure 1), where positive classes include Mosquito-associated viruses and Arboviruses, while negative classes encompass Mosquito-specific viruses and Other viruses (Figure 1).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{Fig1.png}
+  \caption{Flowchart illustrating the link between classifiers}
+  \label{fig:wide}
+\end{figure}
+
+The MosViR pipeline demonstrates versatility in classifying mosquito-associated viral sequences, offering several applications:
+
+1) **Exploring the Discriminatory Patterns:** Use MosViR's alignment-free complex discriminatory patterns to explore host-range associations by classifying previously described viruses from various taxonomic organizations and comparing the frequency of specific (1,2)-mers.
+
+2) **Monitoring Host Shifts:** Classify previously described mosquito-associated viruses to monitor potential host shifts, such as transitions from Mosquito-specific viruses to Arboviruses, or even shifts from non-mosquito viruses (e.g., plant viruses) to mosquito-associated viruses.
+
+3) **Classifying Novel Viruses:** Employ the MosViR pipeline to classify unknown viral sequences, providing unique insights into novel viruses and facilitating their classification.
+
+MosViR serves as a groundbreaking tool for researchers, enabling the classification of unknown contigs through host-based classification of previously unexplored sequences. This has practical implications, including the identification of novel pathogens, detection of potential host shifts, and guidance for conducting wet lab experiments.
+
+For detailed methodological insights, performance comparisons, and biological implications, please refer to Andrade et al., 2024 (in press).
+
+\section{The MosViR as an R package}
+
+\begin{figure*}
+\includegraphics[keepaspectratio,width=12cm]{Fig2.png}
+\centering
+\caption{\label{fig:wide}Package logo}
+\end{figure*}
+
+The pipeline receives as an input viral contigs, which are obtained by assembling reads from metatranscriptomic sequencing of environmental samples or tissues from the vertebrate host or mosquito vectors. The MosViR pipeline is described in Figure 3. 
+
+\begin{figure*}
+\includegraphics[keepaspectratio,width=12cm]{Fig3.png}
+\centering
+\caption{\label{fig:wide}MosViR pipeline. A) Analytical steps included in the pipeline, B) Example of the pipeline output containing the probability scores}
+\end{figure*}
+
+\subsection{Dependencies}
+
+The package needs R(>= 4.2.0) and mnmer(>= 1.0.0).
+
+\subsection{Instalation}
+
+The user should install the package from the Zenodo repository. Please note that the MosViR package has 4,19G due to the multiple predictive models. It may take a while to download.  
+
+```{r, eval=FALSE}
+library(devtools)
+devtools::install_github("labinfo-lncc/mnmer", ref="main")
+devtools::install_url ("https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz")
+
+OR 
+
+In the command line: 
+wget https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz
+
+In R:
+library(devtools)
+devtools::install_github("labinfo-lncc/mnmer", ref="main")
+install.packages("MosViR_0.99.1.tar.gz", repos = NULL, type="source")
+```
+
+\subsection{The $predict\_sequences$ function}
+
+The main function of our pipeline, $predict\_sequences$, is designed to handle a FASTA file containing viral contigs. It anticipates the prior usage of Biostrings for importing FASTA files into the R environment. This function divides the sequences from the DNAStringSet object into segments of varying nucleotide lengths. Subsequently, it uses the mnmer package to generate feature matrices for testing against previously trained predictive models.
+
+Key Features:
+
+Customization: Users can tailor the function by specifying the number of sequences to load, choosing sequences randomly, and setting a probability score cutoff.
+
+The parameters are:
+
+`seqs` = DNAStringObject. 
+
+`cutoff` = Adjust the probability score threshold. Higher cutoff values can result in accurate positive classifications (Mosquito-associated viruses and Arboviruses) while inflating the False Negative results. Default 0.50 
+
+`all.data` = Select sequences randomly or not. Set TRUE or FALSE
+
+The $predict\_sequences$ function returns a data frame containing the classification outputs, as well as the probability scores for all sequences. 
+
+\subsection{The $save\_fasta$ function}
+
+The $save\_fasta$ function filters the output generated by the predict_sequences function and subsequently saves the sequences into a FASTA file. This function empowers users to selectively choose the sequences to retain. For instance, users may opt to save only the sequences classified as Arboviruses.
+ 
+`seqs` = DNAStringSet object.
+
+`res` = The output from the predict_sequences.
+
+`file` = Name of the FASTA file that will be saved.
+
+`category` = Specifies the classes of sequences to save. Options include All, Mosquito, or Arboviruses.
+
+\subsection{Work in progress}
+
+If you have any queries or find a bug, please submit an issue on GitHub or email atrv@lncc.br.
+
+\section{Credits}
+
+This pipeline was developed by [Andrade, AAS](https://github.com/aandradebio) (aandradebio@gmail.com) and [Brustolini, Otávio](https://github.com/otaviojbbrustolini) at the National Laboratory for Scientific Computing - Bioinformatic Laboratory (LABINFO), with contributions from  Grivet, Marco., Schrago, Carlos G, and Vasconcelos, ATR.
+
+Andrade AAS, Brustolini O, Grivet M, Schrago C, and Vasconcelos, ATR. Predicting novel mosquito-associated viruses from metatranscriptomic dark matter. (in press)
+
+\section{SessionInfo}
+
+```{r sessionInfo, echo=FALSE}
+sessionInfo()
+```
