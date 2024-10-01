@@ -35,17 +35,17 @@ The user should install the package from the Zenodo repository. Please note that
 ```
 library(devtools)
 devtools::install_github("labinfo-lncc/mnmer", ref="main")
-devtools::install_url ("https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz")
+devtools::install_url ("https://zenodo.org/records/10950999/files/MosViR_0.99.2.tar.gz")
 
 OR 
 
 In the command line: 
-wget https://zenodo.org/records/10950999/files/MosViR_0.99.1.tar.gz
+wget https://zenodo.org/records/10950999/files/MosViR_0.99.2.tar.gz
 
 In R:
 library(devtools)
 devtools::install_github("labinfo-lncc/mnmer", ref="main")
-install.packages("MosViR_0.99.1.tar.gz", repos = NULL, type="source")
+install.packages("MosViR_0.99.2.tar.gz", repos = NULL, type="source")
 ```
 
 ## The predict_sequences function
