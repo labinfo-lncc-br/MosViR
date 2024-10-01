@@ -17,7 +17,7 @@ appmodels <- function (mtx, m, n, len, cls)
     ldf <- data.frame (ids=mtx[,1])
     mtx <- mtx[,-1]
 
-    ddr <- system.file ("models", package="MosVir")
+    ddr <- system.file ("models", package="MosViR")
 
     load (paste0(ddr,"/models_",cls,"_",len,"_",m,n,".rda"))
     p <- predict(models[[1]], mtx, preProcess = c("center", "scale"),type = "prob")
