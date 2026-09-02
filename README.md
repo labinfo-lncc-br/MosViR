@@ -1,5 +1,3 @@
- [![](https://cranlogs.r-pkg.org/badges/mnmer)](https://cran.r-project.org/package=mnmer)
- [![total](https://cranlogs.r-pkg.org/badges/grand-total/mnmer)](https://cranlogs.r-pkg.org/badges/grand-total/mnmer)
  
  # MosViR - Classification of mosquito viruses in R
 
