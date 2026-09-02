@@ -1,4 +1,7 @@
-# MosViR - Classification of mosquito viruses in R
+ [![](https://cranlogs.r-pkg.org/badges/mnmer)](https://cran.r-project.org/package=mnmer)
+ [![total](https://cranlogs.r-pkg.org/badges/grand-total/mnmer)](https://cranlogs.r-pkg.org/badges/grand-total/mnmer)
+ 
+ # MosViR - Classification of mosquito viruses in R
 
 The MosViR package offers an easy way to accurately identify complex discriminatory patterns in viral contigs and predict their potential host range The package enhances our ability to capture the diverse genomic landscape of mosquito-associated viruses, Other viruses, Mosquito-specific viruses, and Arboviruses.
 
